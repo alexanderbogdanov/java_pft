@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-mainClassName = "MyFirstProgram"
+mainClassName = "ru.stqa.pft.sandbox.MyFirstProgram"
 
 group 'org.example'
 version '1.0-SNAPSHOT'
