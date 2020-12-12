@@ -2,9 +2,12 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -24,9 +27,26 @@ public class ContactHelper extends HelperBase {
     type(By.name("nickname"),contactData.getNickname());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText((contactData.getGroup()));
+//      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText((contactData.getGroup()));
+
+      if (isGroupPresent()) {
+        new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
+      } else {
+        new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
+    }
+  }
+
+  private boolean isGroupPresent() {
+    WebElement element = wd.findElement(By.name("new_group"));
+    List<WebElement> elements = element.findElements(By.tagName("option"));
+    int numberOfOptions = elements.size();
+    if (numberOfOptions>1) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -49,5 +69,21 @@ public class ContactHelper extends HelperBase {
 
   public void submitContactModification() {
     click(By.xpath("//*[@id=\"content\"]/form[1]/input[1]"));
+  }
+
+  public void createContact(ContactData contact) {
+    initContactCreation();
+    fillContactForm(contact, true);
+    submitContactCreation();
+  }
+
+  public void modifyContact(ContactData contact) {
+   initContactModification();
+   fillContactForm(contact, false);
+   submitContactModification();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
   }
 }
