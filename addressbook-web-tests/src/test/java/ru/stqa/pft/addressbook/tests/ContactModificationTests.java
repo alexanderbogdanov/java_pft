@@ -17,7 +17,13 @@ public class ContactModificationTests extends TestBase {
       app.contact().create(new ContactData()
               .withFirstName("Alex")
               .withAddress("SPb, Lenina 1")
-              .withLastName("Bogdanov"));
+              .withLastName("Bogdanov")
+              .withHomePhone("2350863")
+              .withMobilePhone("89113289778")
+              .withWorkPhone("3267998")
+              .withEmail("mail@mail.ru")
+              .withEmail2("mail@yandex.ru")
+              .withEmail3("mail@google.com"));
       app.goTo().homePage();
     }
   }
@@ -28,10 +34,16 @@ public class ContactModificationTests extends TestBase {
     Contacts before = app.contact().all();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData()
-    .withId(modifiedContact.getId())
-    .withFirstName( "Jerry")
-    .withAddress("SPb, Pushkina 5")
-    .withLastName("Lewis");
+            .withId(modifiedContact.getId())
+            .withFirstName("Jerry")
+            .withAddress("SPb, Pushkina 5")
+            .withLastName("Lewis")
+            .withHomePhone("1234567")
+            .withMobilePhone("89213577998")
+            .withWorkPhone("332211")
+            .withEmail("mail@yahoo.com")
+            .withEmail2("mail@test.ru")
+            .withEmail3("mail@kremlin.ru");
 
     app.contact().modify(contact);
     app.goTo().homePage();
