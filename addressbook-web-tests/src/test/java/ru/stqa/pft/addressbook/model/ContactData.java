@@ -3,32 +3,41 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+  private int id = Integer.MAX_VALUE;
+  private String firstName;
+  private String address;
+  private String lastName;
 
-  public void setId(int id) {
+public ContactData withId(int id) {
     this.id = id;
+    return this;
   }
 
-  private int id;
-  private final String firstName;
-  private final String address;
-  private final String lastName;
+  public ContactData withFirstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public ContactData withLastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
   private String group;
 
-  public ContactData(String firstName, String address, String lastName, String group) {
-    this.id = Integer.MAX_VALUE;
-    this.lastName = lastName;
-    this.firstName = firstName;
-    this.address = address;
-    this.group = group;
-  }
 
-  public ContactData(int id, String firstName, String address, String lastName, String group) {
-    this.id = id;
-    this.lastName = lastName;
-    this.firstName = firstName;
-    this.address = address;
-    this.group = group;
-  }
+
+
 
 
   public int getId() {
@@ -56,14 +65,15 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(firstName, that.firstName) &&
+    return id == that.id &&
+            Objects.equals(firstName, that.firstName) &&
             Objects.equals(address, that.address) &&
             Objects.equals(lastName, that.lastName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstName, address, lastName);
+    return Objects.hash(id, firstName, address, lastName);
   }
 
   @Override

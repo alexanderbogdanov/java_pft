@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation 'org.testng:testng:7.1.0'
     implementation 'com.deque.html.axe-core:selenium:4.0.0'
+    implementation 'org.hamcrest:hamcrest:2.2'
 
 }
 
